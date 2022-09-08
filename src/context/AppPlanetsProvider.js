@@ -7,6 +7,11 @@ function AppPlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filter, setFilter] = useState([]);
   const [filterPlanets, setFilterPlanets] = useState();
+  // const [inputFilter, setInputFilter] = useState({
+  //   column: 'population',
+  //   comparison: 'maior que',
+  //   number: 0,
+  // });
 
   const valueContext = {
     planets,
@@ -15,6 +20,8 @@ function AppPlanetsProvider({ children }) {
     setFilter,
     filterPlanets,
     setFilterPlanets,
+    // inputFilter,
+    // setInputFilter,
   };
 
   useEffect(() => {
