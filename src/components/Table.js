@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import AppPlanetsContext from '../context/AppPlanetsContext';
+import Filter from './Filter';
 // import planetApi from '../services/planetApi';
 
 function Table() {
@@ -7,6 +8,7 @@ function Table() {
 
   return (
     <div>
+      <Filter />
       <table>
         <thead>
           <tr>

@@ -5,16 +5,23 @@ import planetApi from '../services/planetApi';
 
 function AppPlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [filterPlanets, setFilterPlanets] = useState();
 
   const valueContext = {
     planets,
     setPlanets,
+    filter,
+    setFilter,
+    filterPlanets,
+    setFilterPlanets,
   };
 
   useEffect(() => {
     const apiPlanets = async () => {
       const data = await planetApi();
       setPlanets(data.results);
+      setFilterPlanets(data.results);
     };
     apiPlanets();
   }, []);
