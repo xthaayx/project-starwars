@@ -41,6 +41,9 @@ function FilterInput() {
     const { column, comparison, number } = inputFilter;
     setColumnsFilters(columnsFilters.filter((curr) => curr !== column));
     let filtered = [];
+    if (columnsFilters.includes('population')) {
+      setInputFilter({ column: 'population' });
+    }
     if (comparison === 'maior que') {
       filtered = planets
         .filter((planet) => Number(planet[column]) > Number(number));
