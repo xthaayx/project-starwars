@@ -5,6 +5,7 @@ import AppPlanetsContext from '../context/AppPlanetsContext';
 function FilterInput() {
   const { filter,
     setFilter,
+    planets,
     setPlanets,
     filterPlanets } = useContext(AppPlanetsContext);
 
@@ -21,21 +22,20 @@ function FilterInput() {
   };
 
   const inputChange = ({ target }) => {
-    const { value, name } = target;
-    setInputFilter({ ...inputFilter, [name]: value });
+    setInputFilter({ ...inputFilter, [target.name]: target.value });
   };
 
   const handleClick = () => {
     const { column, comparison, number } = inputFilter;
     let filtered = [];
     if (comparison === 'maior que') {
-      filtered = filterPlanets
+      filtered = planets
         .filter((planet) => Number(planet[column]) > Number(number));
     } if (comparison === 'menor que') {
-      filtered = filterPlanets
+      filtered = planets
         .filter((planet) => Number(planet[column]) < Number(number));
     } if (comparison === 'igual a') {
-      filtered = filterPlanets
+      filtered = planets
         .filter((planet) => Number(planet[column]) === Number(number));
     }
     setPlanets(filtered);
