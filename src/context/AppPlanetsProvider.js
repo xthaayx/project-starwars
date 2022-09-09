@@ -7,6 +7,7 @@ function AppPlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filter, setFilter] = useState([]);
   const [filterPlanets, setFilterPlanets] = useState();
+
   // const [inputFilter, setInputFilter] = useState({
   //   column: 'population',
   //   comparison: 'maior que',

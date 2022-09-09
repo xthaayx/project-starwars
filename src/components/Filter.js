@@ -15,6 +15,18 @@ function FilterInput() {
     number: 0,
   });
 
+  const [columnsFilters, setColumnsFilters] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+
+  // useEffect(() => {
+  //   setInputFilters({ ...INITIAL_STATE, column: columnsFilters[0] || '' });
+  // }, [columnsFilters]);
+
   const handleFilter = async ({ target }) => {
     setFilter(target.value);
     const filterP = filterPlanets.filter((planet) => planet.name.includes(target.value));
@@ -27,6 +39,7 @@ function FilterInput() {
 
   const handleClick = () => {
     const { column, comparison, number } = inputFilter;
+    setColumnsFilters(columnsFilters.filter((curr) => curr !== column));
     let filtered = [];
     if (comparison === 'maior que') {
       filtered = planets
@@ -58,11 +71,10 @@ function FilterInput() {
           value={ inputFilter.column }
           onChange={ inputChange }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          { columnsFilters.map((i) => (
+            <option key={ i }>
+              { i }
+            </option>)) }
         </select>
       </div>
       <div>
