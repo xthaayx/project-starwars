@@ -9,7 +9,7 @@ function AppPlanetsProvider({ children }) {
   const [allFilters, setAllFilters] = useState([]);
   const [filterName, setFilterName] = useState('');
   // const [filterPlanets, setFilterPlanets] = useState();
-  console.log(filter);
+  // console.log(filter);
 
   const valueContext = {
     filter,
