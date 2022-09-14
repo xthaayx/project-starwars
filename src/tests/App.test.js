@@ -2,10 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 import testData from '../../cypress/mocks/testData';
-import useEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import AppPlanetsProvider from '../context/AppPlanetsProvider';
-import userEvent from '@testing-library/user-event';
 
 
 describe('Teste de input', () => {
@@ -40,6 +39,19 @@ describe('Teste de input', () => {
 
   it('testa filter', async () => {
     act(()=> {render(<AppPlanetsProvider><App /></AppPlanetsProvider>)}) 
-    expect(screen.getByTestId('value-filter')).toBeInTheDocument()
+    const nameImput = screen.getByTestId("name-filter");
+    const columnInput = screen.getByTestId("column-filter");
+    const comparisonInput = screen.getByTestId("comparison-filter");
+    const valueInput = screen.getByTestId("value-filter");
+
+    userEvent.type(nameImput, 'formulário');
+    userEvent.selectOptions(columnInput, ['diameter']);
+    userEvent.selectOptions(comparisonInput, ['maior que']);
+    userEvent.type(valueInput, '12');
+
+    expect(nameImput).toHaveValue('formulário');
+    expect(columnInput).toHaveValue('diameter');
+    expect(comparisonInput).toHaveValue('maior que');
+    expect(valueInput).toHaveValue(12);
   });
 })
