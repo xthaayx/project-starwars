@@ -4,7 +4,50 @@ import Filter from './Filter';
 // import planetApi from '../services/planetApi';
 
 function Table() {
-  const { planets } = useContext(AppPlanetsContext);
+  const { filter, allFilters, filterName } = useContext(AppPlanetsContext);
+
+  const filterByName = (item) => item.filter((i) => i.name.toUpperCase()
+    .includes(filterName.toUpperCase()));
+
+  const filterValue = () => {
+    if (filter) {
+      const result = allFilters.reduce((prev, curr) => prev.filter((item) => {
+        if (curr.comparison === 'maior que') {
+          return Number(item[curr.column]) > Number(curr.value);
+        } if (curr.comparison === 'menor que') {
+          return Number(item[curr.column]) < Number(curr.value);
+        } if (curr.comparison === 'igual a') {
+          return Number(item[curr.column]) === Number(curr.value);
+        }
+        return null;
+      }), filter);
+      return filterByName(result);
+    }
+  };
+
+  const table = () => {
+    if (filter) {
+      return (
+        filterValue().map((planet) => (
+          <tr key={ planet.name }>
+            <td>{planet.name}</td>
+            <td>{planet.rotation_period}</td>
+            <td>{planet.orbital_period}</td>
+            <td>{planet.diameter}</td>
+            <td>{planet.climate}</td>
+            <td>{planet.gravity}</td>
+            <td>{planet.terrain}</td>
+            <td>{planet.surface_water}</td>
+            <td>{planet.population}</td>
+            <td>{planet.films}</td>
+            <td>{planet.created}</td>
+            <td>{planet.edited}</td>
+            <td>{planet.url}</td>
+          </tr>
+        ))
+      );
+    }
+  };
 
   return (
     <div>
@@ -28,23 +71,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { planets.map((planet) => (
-            <tr key={ planet.name }>
-              <td>{planet.name}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.surface_water}</td>
-              <td>{planet.population}</td>
-              <td>{planet.films}</td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>{planet.url}</td>
-            </tr>
-          )) }
+          { table() }
         </tbody>
       </table>
     </div>

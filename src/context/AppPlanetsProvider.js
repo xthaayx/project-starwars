@@ -4,32 +4,28 @@ import AppPlanetsContext from './AppPlanetsContext';
 import planetApi from '../services/planetApi';
 
 function AppPlanetsProvider({ children }) {
-  const [planets, setPlanets] = useState([]);
+  // const [planets, setPlanets] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [filterPlanets, setFilterPlanets] = useState();
-
-  // const [inputFilter, setInputFilter] = useState({
-  //   column: 'population',
-  //   comparison: 'maior que',
-  //   number: 0,
-  // });
+  const [allFilters, setAllFilters] = useState([]);
+  const [filterName, setFilterName] = useState('');
+  // const [filterPlanets, setFilterPlanets] = useState();
+  console.log(filter);
 
   const valueContext = {
-    planets,
-    setPlanets,
     filter,
     setFilter,
-    filterPlanets,
-    setFilterPlanets,
-    // inputFilter,
-    // setInputFilter,
+    allFilters,
+    setAllFilters,
+    filterName,
+    setFilterName,
   };
 
   useEffect(() => {
     const apiPlanets = async () => {
       const data = await planetApi();
-      setPlanets(data.results);
-      setFilterPlanets(data.results);
+      // setPlanets(data.results);
+      // setFilterPlanets(data.results);
+      setFilter(data.results);
     };
     apiPlanets();
   }, []);
